@@ -1,0 +1,16 @@
+[project]
+name = "hackerrank-orchestrate-june26"
+version = "0.1.0"
+description = "Multi-modal damage-claim evidence review (car / laptop / package)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "pillow>=10.3",
+    "litellm>=1.89.2",
+    "python-dotenv>=1.0",
+]
+
+[tool.uv]
+package = false

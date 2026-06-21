@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# uv
+# (uv.lock is intentionally committed for reproducibility)
+
+# Secrets
+.env
+.env.*
+
+# Solution caches / outputs
+.cache/
+code/.cache/
+
+# OS
+.DS_Store

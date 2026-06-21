@@ -1,0 +1,62 @@
+# Provider-agnostic configuration. An admin selects the active model here;
+# the agent code never hardcodes a provider. Backed by LiteLLM (layer 2).
+# Secrets (API keys) are read from environment variables only, never this file.
+
+# claude-haiku@v2 won the sample evaluation (claim_status 85% vs sonnet 80%) at ~1/3 cost.
+active_model: claude-haiku
+
+models:
+  # Primary model: strong vision quality at moderate cost.
+  # Pricing per million tokens (Anthropic API, verified Jun 2026).
+  claude-sonnet:
+    provider: anthropic
+    model: claude-sonnet-4-6
+    api_key_env: ANTHROPIC_API_KEY
+    input_per_mtok: 3.0
+    output_per_mtok: 15.0
+  # Cheap second model for the required model comparison (same provider/key).
+  claude-haiku:
+    provider: anthropic
+    model: claude-haiku-4-5
+    api_key_env: ANTHROPIC_API_KEY
+    input_per_mtok: 1.0
+    output_per_mtok: 5.0
+  # Other providers are supported by the same code path; add a key to use them.
+  gpt4o:
+    provider: openai
+    model: gpt-4o
+    api_key_env: OPENAI_API_KEY
+  gemini:
+    provider: gemini
+    model: gemini-1.5-pro
+    api_key_env: GEMINI_API_KEY
+
+# Paths are resolved relative to the repo root unless absolute.
+paths:
+  dataset_dir: dataset
+  claims_csv: dataset/claims.csv
+  sample_csv: dataset/sample_claims.csv
+  user_history_csv: dataset/user_history.csv
+  evidence_requirements_csv: dataset/evidence_requirements.csv
+  output_csv: output.csv
+
+# Image preprocessing knobs. Downscaling dominates cost control.
+image:
+  max_long_side: 1024
+  jpeg_quality: 85
+  format: JPEG
+
+# Runtime / rate-limit behaviour for the model-calling layer (used later).
+runtime:
+  temperature: 0
+  max_concurrency: 4
+  max_retries: 3
+  request_timeout_s: 90
+
+cache:
+  enabled: true
+  dir: .cache
+
+# v2 adds an anti-confirmation-bias instruction and a strict severity rubric;
+# it beat v1 on the labeled sample (claim_status 80%->85%, severity within-1 90%).
+prompt_version: v2

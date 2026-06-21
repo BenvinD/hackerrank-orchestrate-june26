@@ -1,0 +1,53 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "main: run (test -> output.csv)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/code/main.py",
+            "console": "integratedTerminal",
+            "args": ["run", "--set", "test"]
+        },
+        {
+            "name": "main: preprocess (sample)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/code/main.py",
+            "console": "integratedTerminal",
+            "args": ["preprocess", "--set", "sample"]
+        },
+        {
+            "name": "main: provider-dryrun (no API)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/code/main.py",
+            "console": "integratedTerminal",
+            "args": ["provider-dryrun", "--set", "sample"]
+        },
+        {
+            "name": "main: smoke (live, n=2)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/code/main.py",
+            "console": "integratedTerminal",
+            "args": ["smoke", "--set", "sample", "--n", "2"]
+        },
+        {
+            "name": "main: validate (cached, no spend)",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/code/main.py",
+            "console": "integratedTerminal",
+            "args": ["validate"]
+        },
+        {
+            "name": "evaluation: compare models",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/code/evaluation/main.py",
+            "console": "integratedTerminal",
+            "args": ["--models", "claude-sonnet", "claude-haiku"]
+        }
+    ]
+}
